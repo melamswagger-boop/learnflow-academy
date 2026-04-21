@@ -1,4 +1,27 @@
+import { useEffect, useRef } from "react";
+
 function Modal({ title, isOpen, onClose, children }) {
+  const closeButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return undefined;
+    }
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    closeButtonRef.current?.focus();
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) {
     return null;
   }
@@ -14,7 +37,13 @@ function Modal({ title, isOpen, onClose, children }) {
       >
         <div className="modal__header">
           <h2 id="modal-title">{title}</h2>
-          <button type="button" className="modal__close" aria-label="Close modal" onClick={onClose}>
+          <button
+            ref={closeButtonRef}
+            type="button"
+            className="modal__close"
+            aria-label="Close modal"
+            onClick={onClose}
+          >
             Close
           </button>
         </div>

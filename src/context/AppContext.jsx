@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { categories, defaultProfile } from "../data/courses";
 
 const AppContext = createContext(null);
+let toastTimeoutId;
 
 export function AppProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +22,9 @@ export function AppProvider({ children }) {
 
   function showToast(message) {
     setToast(message);
-    window.setTimeout(() => {
+
+    window.clearTimeout(toastTimeoutId);
+    toastTimeoutId = window.setTimeout(() => {
       setToast(null);
     }, 2600);
   }
@@ -45,7 +48,6 @@ export function AppProvider({ children }) {
       ...current,
       [courseId]: Number(progressValue),
     }));
-    showToast("Progress updated.");
   }
 
   function saveProfile(nextProfile) {

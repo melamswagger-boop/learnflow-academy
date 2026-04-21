@@ -107,6 +107,7 @@ function CourseDetailsPage() {
                   value={progress}
                   onChange={(event) => updateCourseProgress(course.id, event.target.value)}
                 />
+                <p className="progress-editor__hint">Drag the slider to update your current completion percentage.</p>
               </div>
             ) : (
               <Button onClick={() => enrollInCourse(course.id)}>Enrol in this course</Button>

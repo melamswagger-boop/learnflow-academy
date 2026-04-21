@@ -23,6 +23,12 @@ function validateProfile(values) {
 
   if (!values.studyHours) {
     nextErrors.studyHours = "Study hours are required.";
+  } else {
+    const studyHoursNumber = Number(values.studyHours);
+
+    if (Number.isNaN(studyHoursNumber) || studyHoursNumber < 1 || studyHoursNumber > 40) {
+      nextErrors.studyHours = "Study hours must be between 1 and 40.";
+    }
   }
 
   return nextErrors;
@@ -52,6 +58,7 @@ function ProfilePage() {
     }
 
     saveProfile(formValues);
+    setErrors({});
   }
 
   return (

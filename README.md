@@ -79,4 +79,4 @@ npm run build
 
 ## Notes
 
-The workspace environment used to generate this project did not include a package manager binary, so dependencies were not installed in-session. The project files and configuration are ready for a normal `npm install` workflow on a standard Node.js setup.
+Before submission, run `npm run build` once on your own machine to confirm the production build completes successfully and then capture the required screenshots from the final UI.

@@ -15,6 +15,10 @@ function DashboardPage() {
       : Math.round(
           enrolledCourses.reduce((total, course) => total + enrollmentState[course.id], 0) / enrolledCourses.length,
         );
+  const completedCourses = enrolledCourses.filter((course) => enrollmentState[course.id] === 100).length;
+  const nextMilestoneCourse = enrolledCourses
+    .filter((course) => enrollmentState[course.id] < 100)
+    .sort((left, right) => enrollmentState[right.id] - enrollmentState[left.id])[0];
 
   return (
     <div className="container page-stack">
@@ -40,7 +44,26 @@ function DashboardPage() {
           <strong>{profile.preferredTrack}</strong>
           <p>Used to tailor future recommendations and focus areas.</p>
         </article>
+        <article className="info-card">
+          <h2>Courses completed</h2>
+          <strong>{completedCourses}</strong>
+          <p>Fully completed courses across your current learning plan.</p>
+        </article>
       </section>
+
+      {nextMilestoneCourse ? (
+        <section className="details-card">
+          <p className="eyebrow">Next milestone</p>
+          <h2>{nextMilestoneCourse.title}</h2>
+          <p>
+            You are currently at <strong>{enrollmentState[nextMilestoneCourse.id]}%</strong>. One more focused study
+            session could move this course closer to completion.
+          </p>
+          <Link className="button button--primary" to={`/courses/${nextMilestoneCourse.id}`}>
+            Continue learning
+          </Link>
+        </section>
+      ) : null}
 
       {enrolledCourses.length === 0 ? (
         <EmptyState title="No active enrolments yet" message="Start by exploring the course catalogue." />

@@ -248,9 +248,12 @@ button {
 
 .stat-grid,
 .feature-grid,
-.course-grid,
-.dashboard-grid {
+.course-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.dashboard-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .stat-card,
@@ -530,6 +533,12 @@ button {
 .progress-editor {
   display: grid;
   gap: 0.8rem;
+}
+
+.progress-editor__hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .modal-backdrop {
